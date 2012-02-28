@@ -8,10 +8,17 @@
 </head>
 <body>
 <body>
+	<h1 align="center">MR Faulty</h1>
+	<p align="right"><a href="/MrFaulty/logout" style=" text-align: right;">Logout</a></p>
+	<hr>
+		<a href="/MrFaulty/admdev/">Back</a>
+	<br>
 	<form action="deleteuserservlet" method="POST">
+		<label>Enter User ID: </label>
 		<input type="text" name="UserId"> 
 		<input type="submit" value="Find User By ID">
 	</form>
+	
 	<%
 		String signal = (String) request.getAttribute("control");
 	    System.out.println("Ooooooooo"+ signal);
@@ -20,7 +27,22 @@
 		User theUser = new User();
 		theUser = (User) request.getAttribute("theUser");
 	%>
-	<table>
+	
+	<table border="1">
+	<thead>
+		<tr>
+			<th scope="col">Delete
+				</th>
+			<th scope="col">Username
+				</th>
+			<th scope="col">First Name
+				</th>
+			<th scope="col">Last Name
+				</th>
+			<th scope="col">Authority
+				</th>
+		</tr>
+	</thead>
 		<tr>
 			<td><a href="/MrFaulty/deleteuserservlet/<%=theUser.getUserId()%>">Delete</a></td>
 			<td><%=theUser.getUserName()%></td>

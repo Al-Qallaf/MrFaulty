@@ -8,7 +8,12 @@
 <title>Add Users</title>
 </head>
 <body>
-
+	<h1 align="center">MR Faulty</h1>
+	<p align="right"><a href="/MrFaulty/logout" style=" text-align: right;">Logout</a></p>
+	<hr>
+	<a href="/MrFaulty/admdev/">Back</a>
+	<br>
+	<label>Write User Information :</label>
 	<form action="adduser" method="post">
 		<table border="1" cellpadding="1" cellspacing="1"
 			style="width: 500px;">
@@ -47,7 +52,7 @@
 				</tr>
 				<tr>
 					<td>&nbsp;</td>
-					<td><input type="submit" /></td>
+					<td><input type="submit" value="Add User"/></td>
 				</tr>
 			</tbody>
 		</table>

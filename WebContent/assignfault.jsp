@@ -8,7 +8,13 @@
 <title>Assign Fault</title>
 </head>
 <body>
+	<h1 align="center">MR Faulty</h1>
+	<p align="right"><a href="/MrFaulty/logout" style=" text-align: right;">Logout</a></p>
+	<hr>
+	<a href="/MrFaulty/admdev/">Back</a>
+	
 	<form action="/MrFaulty/assignfaultservlet" method="POST">
+	<label>Enter Fault ID :</label>
 		<input type="text" name="FaultId" />
 		<input type="submit" name="Find" value="Show Fault" />
 	</form>
@@ -20,15 +26,33 @@
 			System.out.println(fault.getFaultid());
 	%>
 	<table>
+			<table border="1">
+		<thead>
 		<tr>
-			<td><a href="/MrFaulty/Search/<%=fault.getFaultid()%>"><%=fault.getFaultid()%>
+			<th scope="col">Fault ID
+				&nbsp;</th>
+			<th scope="col">Project
+				&nbsp;</th>
+			<th scope="col">Version
+				&nbsp;</th>
+			<th scope="col">Summary
+				&nbsp;</th>
+			<th scope="col">Status
+				&nbsp;</th>
+				<th scope="col">Assign To
+				&nbsp;</th>
+		</tr>
+	</thead>
+		<tr>
+			<td><a href="/MrFaulty/details/<%=fault.getFaultid()%>"><%=fault.getFaultid()%>
 			</a></td>
 			<td><%=fault.getProject()%></td>
 			<td><%=fault.getRelease()%></td>
 			<td><%=fault.getSummary()%></td>
 			<td><%=fault.getState()%></td>
-			<td><%=fault.getUserid()%></td>
+			
 			<td><select name="investigated_by">
+				<option value=""></option>
 					<%
 					
 					%>

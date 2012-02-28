@@ -8,6 +8,9 @@
 <title>Update Fault</title>
 </head>
 <body>
+	<h1 align="center">MR Faulty</h1>
+	<p align="right"><a href="/MrFaulty/logout" style=" text-align: right;">Logout</a></p>
+	<hr>
 	
 	<form action="update" method="Post">
 		<table border="1" cellpadding="1" cellspacing="1"

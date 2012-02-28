@@ -11,10 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import uk.ac.dundee.service.LoginService;
 import uk.ac.dundee.service.User;
 
-/**
- * Servlet implementation class LoginServlet
- */
-//@WebServlet("/login")
+
 public class LoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
@@ -34,38 +31,28 @@ public class LoginServlet extends HttpServlet {
 		
 		LoginService checkloginValidity = new LoginService();
 		User user = checkloginValidity.authenticate(theUsername, thePassword);
-		//Redirect from servlet to jsp.
-		//He I dont want to have content here, you should redirect to main page and which it show the contect.
-		if (user != null) // the module is boolean now
+	
+		if (user != null)
 		{
 			request.getSession().setAttribute("user_object_session", user);
 		
-			//request.setAttribute("user_object_session", user); //what is the difference here and down on(here error why).
 			switch (user.getPrivilege())
 			{
 				case "administrator":
 				{
-					System.out.println("You are Administrator..........");	
-					response.sendRedirect("/MrFaulty/admdev/"); // we can redirect to servlet(put servlet path)
+					response.sendRedirect("/MrFaulty/admdev/"); 
 					return;
 				}
 				case "reporter":
 				{	
-					//RequestDispatcher rd= request.getRequestDispatcher("/insert");
-					//rd.forward(request, response);
-					response.sendRedirect("/MrFaulty/insert"); // we can redirect to servlet(put servlet path)
+					response.sendRedirect("/MrFaulty/insert");
 					return;
 				}
 				case "developer":
 				{
-					response.sendRedirect("/MrFaulty/admdev/"); // we can redirect to servlet(put servlet path)
-					//RequestDispatcher rd= request.getRequestDispatcher("/MrFaulty/admdev/*");
-					//rd.forward(request, response);
+					response.sendRedirect("/MrFaulty/admdev/"); 
 					return;
 				}
-			//User user = LoginService.getUserDetails(theUsername);
-			//System.out.println("here "+user.getPassword());
-			//return;
 			}
 		}
 		else

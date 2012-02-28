@@ -11,15 +11,6 @@ public class LoginService {
 	
 	public User authenticate(String username,String password)
 	{
-		// this method would connect to the database where I have stored all the username and password and
-		// other information, it will pull up the password and the username and compare it with 
-		// what we have password and username in DB, to make sure that the authentication has done.
-		// JDBC connection over Here
-		//if (password == null || password.trim()=="")
-		//{
-		//	return false;
-		//}
-		//	return true;
 		User success = null;
 		try
 		{
@@ -39,11 +30,11 @@ public class LoginService {
 			
 			while(rs.next())
 			{
-				System.out.println(rs.getString("first_name") +" "+ rs.getString("last_name"));
+	
 				if (username.equals(rs.getString("username")) && password.equals(rs.getString("password")))
 				{
 					success = new User();
-					System.out.println("I'm inside if statment");
+	
 					success.setUserId(rs.getInt("iduser"));
 					success.setUserName(rs.getString("username"));
 					success.setFirst_Name(rs.getString("first_name"));
@@ -62,7 +53,7 @@ public class LoginService {
 				System.out.println("Error yaa yoba" + e);			
 		}
 		
-		System.out.println("Success is  "+success);
+	
 		return success;
 	}
 	
@@ -73,7 +64,7 @@ public class LoginService {
 		int updateQuery = 0;
 		try
 		{
-			//May I check the user here, using id from session
+	
 			Class.forName("com.mysql.jdbc.Driver");
 			Connection MyConnection =  DriverManager.getConnection("jdbc:mysql://localhost:3306/mrfaulty", "root", "mesureme");
 			PreparedStatement pstatement = null;
@@ -107,7 +98,7 @@ public class LoginService {
 		boolean isdeleted=false;
 		try
 		{
-			//May I check the user here, using id from session
+			
 			Class.forName("com.mysql.jdbc.Driver");
 			Connection MyConnection =  DriverManager.getConnection("jdbc:mysql://localhost:3306/mrfaulty", "root", "mesureme");
 			PreparedStatement pstatement = null;
@@ -116,7 +107,7 @@ public class LoginService {
             pstatement = MyConnection.prepareStatement(queryString);
             pstatement.setInt(1, UserId);
             isdeleted = pstatement.execute();
-            System.out.println("The Data Deleted faultid = "+ UserId +" isdeleted is "+ isdeleted);
+            
             
             MyConnection.close();
 		}
@@ -181,7 +172,7 @@ public class LoginService {
 		User user = null;
 		try
 		{
-			//May I check the user here, using id from session
+			
 			Class.forName("com.mysql.jdbc.Driver");
 			Connection MyConnection =  DriverManager.getConnection("jdbc:mysql://localhost:3306/mrfaulty", "root", "mesureme");
 			PreparedStatement pstatement = null;
@@ -214,13 +205,4 @@ public class LoginService {
 		
 		return user;  
 	}
-	
-	
-	//public static User getUserDetails(String username) // the module is actually the object that we gona pass, and this
-	//{											// object(User) in real world scenario comes from the DB.
-	//	User user= new User();
-	//	user.setUserName(username);
-	//	//user.setPassword(password);
-	//	return user;
-	//}
 }

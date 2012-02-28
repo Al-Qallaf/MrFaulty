@@ -8,9 +8,15 @@
 <title>Add Fault</title>
 </head>
 <body>
+	<h1 align="center">MR Faulty</h1>
+	<p align="right"><a href="/MrFaulty/logout" style=" text-align: right;">Logout</a></p>
+	<hr>
 	<% 
 		User user = (User) session.getAttribute("user_object_session");
 	%>
+	<a href="/MrFaulty/admdev/">Back</a>
+	<br>
+	<label>Write User Information :</label>
 	<form action="insert" method="post">
 		<table border="1" cellpadding="1" cellspacing="1"
 			style="width: 500px;">
@@ -38,7 +44,7 @@
 				</tr>
 				<tr>
 					<td></td>
-					<td><input type="submit" /></td>
+					<td><input type="submit" name="Add Fault" value="Add Fault"/></td>
 				</tr>
 			</tbody>
 		</table>

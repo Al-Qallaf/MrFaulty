@@ -9,7 +9,9 @@
 
 </head>
 <body>
-
+	<h1 align="center">MR Faulty</h1>
+	<p align="right"><a href="/MrFaulty/logout" style=" text-align: right;">Logout</a></p>
+	<hr>
 
 
 <form action="/MrFaulty/search" method="POST">
@@ -37,7 +39,7 @@
 			fault = (Fault)iterator.next();
 				%>
 			<table>
-			    <tr> <td><a href="/MrFaulty/Search/<%=fault.getFaultid()%>"><%=fault.getFaultid()%> </a></td> 
+			    <tr> <td><a href="/MrFaulty/details/<%=fault.getFaultid()%>"><%=fault.getFaultid()%> </a></td> 
 			    	 <td><%=fault.getProject()%> </td>
 			    	 <td><%=fault.getRelease()%> </td>
 			    	 <td><%=fault.getSummary()%> </td>
@@ -53,7 +55,7 @@
 	     
 	 %>
 			<table>
-			    <tr> <td><a href="/MrFaulty/Search/<%=fault.getFaultid()%>"><%=fault.getFaultid()%> </a></td> 
+			    <tr> <td><a href="/MrFaulty/details/<%=fault.getFaultid()%>"><%=fault.getFaultid()%> </a></td> 
 			    	 <td><%=fault.getProject()%> </td>
 			    	 <td><%=fault.getRelease()%> </td>
 			    	 <td><%=fault.getSummary()%> </td>

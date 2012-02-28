@@ -25,6 +25,12 @@ public class AssignFaultServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
 	{
+		if (request.getSession().getAttribute("user_object_session") == null)
+		{
+				RequestDispatcher rd= request.getRequestDispatcher("login.jsp");
+				rd.forward(request, response);
+				return;	
+		}
 		request.setAttribute("switch", "Pass");
 		RequestDispatcher rd= request.getRequestDispatcher("/assignfault.jsp");
 		rd.forward(request, response);

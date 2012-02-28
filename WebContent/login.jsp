@@ -7,7 +7,10 @@
 <title>Welcome To Mr Faulty login page</title>
 </head>
 <body>
-
+	<h1 align="center">MR Faulty</h1>
+	
+	<hr>
+<p align="center">
 <form action="login" method="post">
 	UserName :<input type="text" name="userId" />
 	<br>
@@ -15,6 +18,6 @@
 	<br>
 	<input type="submit"/>
 </form>
-
+<p>
 </body>
 </html>

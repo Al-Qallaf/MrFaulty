@@ -23,26 +23,49 @@ public class DeleteUserServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
 	{
+		if (request.getSession().getAttribute("user_object_session") == null)
+		{
+				RequestDispatcher rd= request.getRequestDispatcher("/login.jsp");
+				rd.forward(request, response);
+				return;	
+		}
 		try
 		{
-			String UserId = request.getPathInfo().substring(1);
-			System.out.println("Hathaaa awal shay "+UserId);	
-			boolean OnlyNumbers= UserId.matches("^[0-9]+$");
-			if (OnlyNumbers)
-			{
-				LoginService ls= new LoginService();
-				ls.deleteuser(Integer.parseInt(UserId));	
-			}
-		request.setAttribute("control", "doGet");
-		 
-		RequestDispatcher rd= request.getRequestDispatcher("/deleteuser.jsp");
-		rd.forward(request, response);
-		return;
-		}
-		catch (Exception e) 
+		User user= (User)  request.getSession().getAttribute("user_object_session");
+		if (user.getPrivilege().equals("administrator"))
 		{
-			System.out.println("error -->" + e.getMessage());	
-		}	
+			try
+			{
+				String UserId = request.getPathInfo().substring(1);
+				boolean OnlyNumbers= UserId.matches("^[0-9]+$");
+				if (OnlyNumbers)
+				{
+					LoginService ls= new LoginService();
+					ls.deleteuser(Integer.parseInt(UserId));	
+				}
+			request.setAttribute("control", "doGet");
+			 
+			RequestDispatcher rd= request.getRequestDispatcher("/deleteuser.jsp");
+			rd.forward(request, response);
+			return;
+			}
+			catch (Exception e) 
+			{
+				System.out.println("error -->" + e.getMessage());	
+			}	
+		}
+		else
+		{
+			RequestDispatcher rd= request.getRequestDispatcher("login.jsp");
+			rd.forward(request, response);
+		}
+		}
+	catch (Exception e) 
+	{
+		RequestDispatcher rd= request.getRequestDispatcher("login.jsp");
+		rd.forward(request, response);
+	}
+		
 	}
 
 	
@@ -53,7 +76,7 @@ public class DeleteUserServlet extends HttpServlet {
 		request.setAttribute("control", "doPost");
 		String TheUserId= request.getParameter("UserId"); 
 		boolean OnlyNumbers= TheUserId.matches("^[0-9]+$");
-		//request.setAttribute("", null);
+
 		
 		if (OnlyNumbers)
 			{

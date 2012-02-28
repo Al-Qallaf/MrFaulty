@@ -14,26 +14,23 @@ import uk.ac.dundee.service.FaultService;
 import uk.ac.dundee.service.LoginService;
 import uk.ac.dundee.service.User;
 
-/**
- * Servlet implementation class UpdateFault
- */
-//@WebServlet("/UpdateFault")
+
 public class UpdateFault extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
     public UpdateFault() {
         super();
-        // TODO Auto-generated constructor stub
+        
     }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
 	{
+		if (request.getSession().getAttribute("user_object_session") == null)
+		{
+				RequestDispatcher rd= request.getRequestDispatcher("/login.jsp");
+				rd.forward(request, response);
+				return;	
+		}
 		ArrayList<User> listusers = new ArrayList<User>();
 		listusers = LoginService.ListUserType("developer");
 		request.setAttribute("Users", listusers);
@@ -42,47 +39,41 @@ public class UpdateFault extends HttpServlet {
 		rd.forward(request, response);
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
+
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
 	{
-		System.out.println("I'm in doPost in SearchServlet......");
 		try
 		{
 		String TheFaultId= request.getParameter("FaultId"); 
 		boolean OnlyNumbers= TheFaultId.matches("^[0-9]+$");
-		//request.setAttribute("Fault", null);
+		String project, version, summary; 
 		
 		if (OnlyNumbers)
 		{	
-			System.out.println(" it is number ");
 			int Faultid= Integer.parseInt(TheFaultId);
 			Fault fault = new Fault();
 			fault = FaultService.queryByFaultId(Faultid);
-			//request.setAttribute("Fault", fault);
-			//request.setAttribute("switch", "dontpass");
-			System.out.println("the returned value is "+ request.getParameter("Fault"));
+
 			
-			if (request.getParameter("project").toString() != null )
+			if (request.getParameter("project") != "" )
 				fault.setProject(request.getParameter("project").toString());
 				
-			if (request.getParameter("version").toString() != null)
+			if (request.getParameter("version").toString() != "")
 				fault.setRelease(request.getParameter("version").toString());
 			
-			if (request.getParameter("summary").toString() != null)
+			if (request.getParameter("summary") != "")
 				fault.setSummary(request.getParameter("summary").toString());
 			
-			if (request.getParameter("details").toString() != null)
+			if (request.getParameter("details").toString() != "")
 				fault.setDetails(request.getParameter("details").toString());
 			
-			if (request.getParameter("status").toString() != null)
+			if (request.getParameter("status").toString() != "")
 				fault.setState(request.getParameter("status").toString());
 				
-			if (request.getParameter("action").toString() != null)
+			if (request.getParameter("action").toString() != "")
 				fault.setAction(request.getParameter("action").toString());			
 										
-			if (request.getParameter("investigated_by").toString() != null)
+			if (request.getParameter("investigated_by").toString() != "")
 				fault.setInvestigated_by(request.getParameter("investigated_by").toString());
 			boolean updatedFault;
 			updatedFault= FaultService.update(fault);
@@ -101,16 +92,6 @@ public class UpdateFault extends HttpServlet {
 		{
 			System.out.println("catch---->"+ e.getMessage() );
 		}
-	}
-
-	
-	/**
-	 * @see HttpServlet#doPut(HttpServletRequest, HttpServletResponse)
-	 */
-	protected void doPut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
-	{
-		System.out.println("I'm in Puttttt");
-		
 	}
 
 }

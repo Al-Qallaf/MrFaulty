@@ -16,15 +16,19 @@ public class DeleteServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     public DeleteServlet() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
 	{
+		if (request.getSession().getAttribute("user_object_session") == null)
+		{
+				RequestDispatcher rd= request.getRequestDispatcher("/login.jsp");
+				rd.forward(request, response);
+				return;	
+		}
 		try
 		{
 			String FaultId = request.getPathInfo().substring(1);
-			System.out.println("Hathaaa awal shay "+FaultId);	
 			boolean OnlyNumbers= FaultId.matches("^[0-9]+$");
 			if (OnlyNumbers)
 			{
@@ -58,9 +62,7 @@ public class DeleteServlet extends HttpServlet {
 			int Faultid= Integer.parseInt(TheFaultId);
 			Fault fault = new Fault();
 			fault = FaultService.queryByFaultId(Faultid);
-			request.setAttribute("theFault", fault);
-			//request.setAttribute("switch", "dontpass");
-			System.out.println("the returned value is "+ request.getAttribute("FaultId"));	
+			request.setAttribute("theFault", fault);	
 			}
 		
 		RequestDispatcher rd= request.getRequestDispatcher("/deletefault.jsp");

@@ -11,9 +11,8 @@
 </head>
 <body>
 	<h1 align="center">MR Faulty</h1>
-	<h1 align="center">
-		<hr>
-	</h1>
+	<p align="right"><a href="/MrFaulty/logout" style=" text-align: right;">Logout</a></p>
+	<hr>
 	<h3>Report The Fault, Please.</h3>
 	<%
 		User user = (User) session.getAttribute("user_object_session");
@@ -63,18 +62,41 @@
 		Iterator<Fault> iterator;
 		iterator = faultss.iterator();
 		Fault fault;
+	%>	
+		<label><h3> The Submited Faults :</h3></label>
+		<table border="1">
+			<thead>
+		<tr>
+			<th scope="col">Details
+				&nbsp;</th>
+			<th scope="col">Fault ID
+				&nbsp;</th>
+			<th scope="col">Project
+				&nbsp;</th>
+			<th scope="col">Summary
+				&nbsp;</th>
+			<th scope="col">Action
+				&nbsp;</th>
+			<th scope="col">Status
+				&nbsp;</th>
+		</tr>
+	
+	<% 
 		while (iterator.hasNext()) {
 			fault = (Fault) iterator.next();
 	%>
-	<table>
+		
 		<tr>
-			<td><a href="<%=fault.getFaultid()%>">Details</a></td>
-			<td><%=fault.getUserid()%></td>
+			<td><a href="/MrFaulty/details/<%=fault.getFaultid()%>">Details</a></td>
+			<td><%=fault.getFaultid()%></td>
+			<td><%=fault.getProject()%></td>
 			<td><%=fault.getSummary()%></td>
+			<td><%=fault.getAction()%></td>
+			<td><%=fault.getState()%></td>
 		</tr>
-	</table>
 	<%
 		}
 	%>
+	</table>
 </body>
 </html>

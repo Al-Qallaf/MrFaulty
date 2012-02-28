@@ -7,6 +7,10 @@
 <title>Welcome To Mr Faulty</title>
 </head>
 <body>
+	<h1 align="center">MR Faulty</h1>
+	<p align="right"><a href="/MrFaulty/logout" style=" text-align: right;">Logout</a></p>
+	<hr>
+
 <%User user= (User)  request.getSession().getAttribute("user_object_session");%>
 
 <% if (user.getPrivilege().equals("administrator"))
@@ -18,11 +22,14 @@
 			    	 <td><a href="/MrFaulty/insert">Add Fault</a></td>
 			    	 <td><a href="/MrFaulty/update">Update Fault</a></td>
 			    	 <td><a href="/MrFaulty/delete/">Delete Fault</a></td>
+			    	 <td><a href="/MrFaulty/devfaultassigned">Dev Assigned Faults</a></td>
 			    </tr>
 </table>
 <table>
 			    <tr> <td><a href="/MrFaulty/adduser">Add User</a></td> 
 			    	 <td><a href="/MrFaulty/deleteuserservlet/">Delete User</a></td>
+			    	 <td><a href="/MrFaulty/list">List Users</a></td>
+			    	 <td><a href="/MrFaulty/searchuserfault">List User Faults</a></td>
 			    </tr>
 </table>
 <%} %>
@@ -35,6 +42,7 @@
 			   <tr>
 			    	 <td><a href="/MrFaulty/search">Search Fault</a></td> 
 			    	 <td><a href="/MrFaulty/update">Update Fault</a></td>
+			    	 <td><a href="/MrFaulty/searchuserfault">List User Faults</a></td>
 			    </tr>
 </table>
 
@@ -53,7 +61,21 @@
 		iterator = faultss.iterator();
 		Fault fault;
 %>
-		<table>
+		<table border="1">
+		<thead>
+		<tr>
+			<th scope="col">Fault ID
+				&nbsp;</th>
+			<th scope="col">Project
+				&nbsp;</th>
+			<th scope="col">Version
+				&nbsp;</th>
+			<th scope="col">Summary
+				&nbsp;</th>
+			<th scope="col">Status
+				&nbsp;</th>
+		</tr>
+	</thead>
 <%
 		while (iterator.hasNext())
 		{
@@ -61,7 +83,8 @@
 			if (fault.getState().equals("New")) 
 			{
 %>
-			    <tr> <td><a href="/MrFaulty/admdev/<%=fault.getFaultid()%>">Details</a></td> 
+
+			    <tr> <td><a href="/MrFaulty/details/<%=fault.getFaultid()%>">Details</a></td> 
 			    	 <td><%=fault.getProject()%> </td>
 			    	 <td><%=fault.getRelease()%> </td>
 			    	 <td><%=fault.getSummary()%> </td>
