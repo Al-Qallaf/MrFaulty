@@ -61,6 +61,10 @@
     <servlet-name>Logout</servlet-name>
     <servlet-class>uk.ac.dundee.service.Logout</servlet-class>
   </servlet>
+  <servlet>
+    <servlet-name>Json</servlet-name>
+    <servlet-class>uk.ac.dundee.Json</servlet-class>
+  </servlet>
   
   <servlet-mapping>
     <servlet-name>login</servlet-name>
@@ -123,5 +127,8 @@
     <servlet-name>Logout</servlet-name>
     <url-pattern>/logout</url-pattern>
   </servlet-mapping>
- 
+    <servlet-mapping>
+    <servlet-name>Json</servlet-name>
+    <url-pattern>/generatejson</url-pattern>
+  </servlet-mapping>
 </web-app>

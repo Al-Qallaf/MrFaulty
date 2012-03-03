@@ -11,7 +11,9 @@
 	<h1 align="center">MR Faulty</h1>
 	<p align="right"><a href="/MrFaulty/logout" style=" text-align: right;">Logout</a></p>
 	<hr>
+	<a href="/MrFaulty/admdev/">Back</a><br>
 	
+	Enter Fault Id, and the information needed to be update, Please.
 	<form action="update" method="Post">
 		<table border="1" cellpadding="1" cellspacing="1"
 			style="width: 500px;">

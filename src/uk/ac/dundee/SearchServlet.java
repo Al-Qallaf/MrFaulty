@@ -16,10 +16,9 @@ import uk.ac.dundee.service.FaultService;
 
 public class SearchServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;  
-
+	
     public SearchServlet() {
         super();
-       
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
@@ -30,21 +29,42 @@ public class SearchServlet extends HttpServlet {
 				rd.forward(request, response);
 				return;	
 		}
+		try{
+			
+			
+			String required=null;
+			String controller= "";
 		
-		if (request.getPathInfo() != null)
-		{
-			String reqired = request.getPathInfo().substring(1);
-			System.out.println("Hathaaa men fog "+reqired);	
-		}
-	
-		ArrayList<Fault> faults = new ArrayList<Fault>();
-		faults = FaultService.queryAll();
-		request.setAttribute("Faults", faults);
-		
-		request.setAttribute("switch", "Pass");
-		RequestDispatcher rd= request.getRequestDispatcher("/faultsearch.jsp");
-		rd.forward(request, response);
-		return;
+			if (request.getPathInfo() != null)
+			{
+				required = request.getPathInfo().substring(1);
+				if (required.contains("json"))
+				{
+						controller="json";
+				}
+			}
+			
+			ArrayList<Fault> faults = new ArrayList<Fault>();
+			faults = FaultService.queryAll();
+			request.setAttribute("Faults", faults);
+
+			
+			switch (controller) {
+			case "json":
+				RequestDispatcher rdjson=request.getRequestDispatcher("/generatejson");
+				rdjson.forward(request,response);
+				break;
+
+			default:
+				request.setAttribute("switch", "Pass");
+				RequestDispatcher rd= request.getRequestDispatcher("/faultsearch.jsp");
+				rd.forward(request, response);
+				break;
+			} 			}
+		catch (Exception e) 
+			{
+				System.out.println("Error "+ e.getMessage());
+			}
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
